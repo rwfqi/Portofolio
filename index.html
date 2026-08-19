@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifqi Ramadhani Hidayat | Software & ML Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --text-color: #e2e8f0;
+            --muted-color: #94a3b8;
+            --accent-color: #64ffda;
+            --card-bg: #161a23;
+            --card-hover: #1e2430;
+            --border-color: #272f3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem 0;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        nav .nav-links a {
+            color: var(--muted-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-left: 2rem;
+            transition: color 0.2s ease;
+        }
+
+        nav .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero */
+        header {
+            min-height: 65vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tagline {
+            color: var(--accent-color);
+            font-family: monospace;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .bio-summary {
+            max-width: 620px;
+            color: var(--muted-color);
+            font-size: 1.05rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+        }
+
+        h2::after {
+            content: "";
+            height: 1px;
+            background-color: var(--border-color);
+            flex-grow: 1;
+            margin-left: 1.5rem;
+        }
+
+        /* Projects Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 1.8rem;
+        }
+
+        /* Clickable Project Card */
+        .card {
+            background-color: var(--card-bg);
+            padding: 2.2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-color);
+            background-color: var(--card-hover);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card-header h3 {
+            font-size: 1.25rem;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .card-header .link-icon {
+            color: var(--muted-color);
+            font-size: 1.2rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .card:hover .link-icon {
+            color: var(--accent-color);
+            transform: translate(3px, -3px);
+        }
+
+        .card p {
+            color: var(--muted-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.8rem;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .tags span {
+            font-size: 0.78rem;
+            font-family: monospace;
+            color: var(--accent-color);
+            background-color: rgba(100, 255, 218, 0.08);
+            padding: 0.35rem 0.7rem;
+            border-radius: 4px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-links a {
+            color: var(--muted-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-links a:hover {
+            color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">Rai.</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+            </div>
+        </nav>
+
+        <header>
+            <p class="tagline">Informatics Student & Developer</p>
+            <h1>Rifqi Ramadhani Hidayat.</h1>
+            <p class="subtitle">Building backend systems, data pipelines & machine learning solutions.</p>
+            <p class="bio-summary">
+                Informatics student from Universitas Gunadarma with a focus on software engineering, data, and intelligent systems. I enjoy turning ideas into practical, reliable solutions, especially where technology can make real-world processes simpler and more efficient.
+            </p>
+        </header>
+
+        <section id="about" class="fade-in">
+            <h2>About Me</h2>
+            <div style="color: var(--muted-color); max-width: 720px; line-height: 1.85;">
+                <p style="margin-bottom: 1.2rem;">
+                    I focus on backend engineering, data analysis, and integrating machine learning models into real-world applications. Whether I'm designing database architectures, building RESTful pipelines across PHP and Python, or parsing low-level data streams, I enjoy turning complex problems into clean, maintainable systems.
+                </p>
+                <p>
+                    Outside of the technical side, I also enjoy designing things and playing around with UI, digital art, and other creative stuff. I'm usually jumping between coding, piano, gaming, cooking, or whatever random project happens to catch my attention. I like figuring things out by actually building them, breaking them, and then wondering why I thought that was a good idea in the first place.
+                </p>
+            </div>
+        </section>
+
+        <section id="projects" class="fade-in">
+            <h2>Featured Projects</h2>
+            <div class="grid">
+                
+                <!-- Phishing Detection System -->
+                <a href="https://github.com/rwfqi/PhishDetect" target="_blank" rel="noopener noreferrer" class="card">
+                    <div>
+                        <div class="card-header">
+                            <h3>Phishing Detection System</h3>
+                            <span class="link-icon">↗</span>
+                        </div>
+                        <p>Undergraduate thesis project. A machine learning-driven web security system that detects malicious phishing URLs by analyzing URL characteristics and domain-related features in real time.</p>
+                    </div>
+                    <div class="tags">
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>PHP</span>
+                        <span>Machine Learning</span>
+                    </div>
+                </a>
+
+                <!-- Automotive Diagnostic Converter (Non-clickable Card) -->
+                <div class="card" style="cursor: default;">
+                    <div>
+                        <div class="card-header">
+                            <h3>Auto-Diagnostic Data Converter</h3>
+                            <span style="font-size: 0.8rem; color: var(--muted-color); font-family: monospace;">[Internal Tool]</span>
+                        </div>
+                        <p>A custom Python data-processing tool developed for an automotive diagnostic workflow. Parses, cleans, and standardizes proprietary scanner data into structured formats, reducing manual data processing and improving consistency.</p>
+                    </div>
+                    <div class="tags">
+                        <span>Python</span>
+                        <span>Data Parsing</span>
+                        <span>Client Project</span>
+                        <span>Confidential</span>
+                    </div>
+                </div>
+
+                <!-- MotoStock -->
+                <a href="https://github.com/rwfqi/MotoStock" target="_blank" rel="noopener noreferrer" class="card">
+                    <div>
+                        <div class="card-header">
+                            <h3>MotoStock</h3>
+                            <span class="link-icon">↗</span>
+                        </div>
+                        <p>A comprehensive motorcycle spare parts inventory and supply chain information system designed to manage stock levels, incoming shipments, and distribution tracking efficiently.</p>
+                    </div>
+                    <div class="tags">
+                        <span>Laravel</span>
+                        <span>PHP</span>
+                        <span>MySQL</span>
+                        <span>Bootstrap</span>
+                    </div>
+                </a>
+
+                <!-- Echoes of Cigarette -->
+                <a href="https://raizine.itch.io/echoes-of-cigaratte" target="_blank" rel="noopener noreferrer" class="card">
+                    <div>
+                        <div class="card-header">
+                            <h3>Echoes of Cigartte</h3>
+                            <span class="link-icon">↗</span>
+                        </div>
+                        <p>A narrative-driven indie visual novel project developed entirely solo.Handled the complete game production process, including scriptwriting, character art, sound staging, and Ren'Py scripting.</p>
+                    </div>
+                    <div class="tags">
+                        <span>Ren'Py</span>
+                        <span>Python</span>
+                        <span>Game Dev</span>
+                        <span>Solo Production</span>
+                    </div>
+                </a>
+
+                <!-- PerpusDB -->
+                <a href="https://github.com/rwfqi/PerpuSBD" target="_blank" rel="noopener noreferrer" class="card">
+                    <div>
+                        <div class="card-header">
+                            <h3>PerpusDB</h3>
+                            <span class="link-icon">↗</span>
+                        </div>
+                        <p>A lightweight library management and cataloging web application built with native PHP, featuring relational database queries, CRUD operations, and administrative member tracking.</p>
+                    </div>
+                    <div class="tags">
+                        <span>PHP Native</span>
+                        <span>MySQL</span>
+                        <span>Web System</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <footer>
+            <div class="contact-links">
+                <a href="https://github.com/rwfqi" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/rifqi-ramadhani-hidayat-2845bb112/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="mailto:rifqiramadhanihidayat@gmail.com">Email</a>
+            </div>
+
+            <p>Designed with Jem &bull; Rai &copy; 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
