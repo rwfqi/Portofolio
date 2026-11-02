@@ -4,37 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifqi Ramadhani Hidayat | Software & ML Portfolio</title>
+    <!-- Google Fonts for P5R Impact & Clean Readability -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:ital,wght@0,500;0,800;1,700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f1115;
-            --text-color: #e2e8f0;
-            --muted-color: #94a3b8;
-            --accent-color: #64ffda;
-            --card-bg: #161a23;
-            --card-hover: #1e2430;
-            --border-color: #272f3d;
+            --bg-color: #07090e;
+            --panel-bg: #0e131d;
+            --panel-hover: #131b29;
+            --p5-blue: #00bbfa;
+            --p5-gold: #ffc54a;
+            --p5-white: #ffffff;
+            --text-color: #ffffff;
+            --muted-color: #cbd5e1;
+            --font-display: 'Anton', Impact, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
+            font-family: var(--font-sans);
             line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        ::selection {
+            background-color: var(--p5-gold);
+            color: var(--bg-color);
+        }
+
+        /* --- P5R Background Halftone & Dynamic Slashes --- */
+        .p5-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            /* Subtle comic halftone dot pattern */
+            background-image: 
+                radial-gradient(rgba(0, 187, 250, 0.14) 1.5px, transparent 1.5px),
+                radial-gradient(rgba(255, 197, 74, 0.08) 1.5px, var(--bg-color) 1.5px);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+
+        /* Giant geometric diagonal slashes */
+        .p5-bg::before {
+            content: "";
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 55vw;
+            height: 140vh;
+            background: linear-gradient(
+                135deg,
+                transparent 42%,
+                rgba(0, 187, 250, 0.07) 42%,
+                rgba(0, 187, 250, 0.07) 48%,
+                transparent 48%,
+                transparent 52%,
+                rgba(255, 197, 74, 0.06) 52%,
+                rgba(255, 197, 74, 0.06) 55%,
+                transparent 55%
+            );
+            transform: rotate(-12deg);
+        }
+
+        .p5-star-bg {
+            position: fixed;
+            right: 5%;
+            top: 15%;
+            width: 280px;
+            height: 280px;
+            opacity: 0.06;
+            z-index: -1;
+            pointer-events: none;
+            animation: spinSlow 45s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .container {
-            max-width: 1050px;
+            max-width: 1080px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
         }
 
-        /* Navigation */
+        /* --- Navigation (Phantom Menu Style) --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -43,216 +118,554 @@
         }
 
         .logo {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--accent-color);
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--bg-color);
+            background-color: var(--p5-white);
             text-decoration: none;
-            letter-spacing: 1px;
+            padding: 0.1rem 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            transform: skew(-12deg) rotate(-2deg);
+            border: 3px solid var(--bg-color);
+            box-shadow: 5px 5px 0px var(--p5-blue), 9px 9px 0px var(--p5-gold);
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .logo span {
+            color: var(--p5-blue);
+        }
+
+        .logo:hover {
+            background-color: var(--p5-gold);
+            transform: skew(-12deg) rotate(1deg) scale(1.06);
+            box-shadow: 6px 6px 0px var(--p5-white), 11px 11px 0px var(--p5-blue);
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 1.2rem;
         }
 
         nav .nav-links a {
-            color: var(--muted-color);
+            font-family: var(--font-display);
+            color: var(--p5-white);
+            background-color: var(--panel-bg);
             text-decoration: none;
-            font-size: 0.95rem;
-            margin-left: 2rem;
-            transition: color 0.2s ease;
+            font-size: 1.15rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.4rem 1.2rem;
+            border: 2px solid var(--p5-white);
+            transform: skew(-14deg);
+            box-shadow: 4px 4px 0px var(--p5-blue);
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+
+        nav .nav-links a span {
+            display: inline-block;
+            transform: skew(14deg);
         }
 
         nav .nav-links a:hover {
-            color: var(--accent-color);
+            color: var(--bg-color);
+            background-color: var(--p5-gold);
+            border-color: var(--p5-white);
+            transform: skew(-14deg) translate(-3px, -3px) rotate(-2deg);
+            box-shadow: 6px 6px 0px var(--p5-blue), 10px 10px 0px var(--p5-white);
         }
 
-        /* Hero */
+        /* --- Hero Section --- */
         header {
-            min-height: 65vh;
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: flex-start;
+            padding: 2rem 0 4rem;
+        }
+
+        .tagline-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: var(--p5-gold);
+            color: var(--bg-color);
+            padding: 0.35rem 1rem;
+            margin-bottom: 1.2rem;
+            transform: skew(-12deg) rotate(-1deg);
+            border: 2px solid var(--p5-white);
+            box-shadow: 5px 5px 0px var(--p5-blue);
         }
 
         .tagline {
-            color: var(--accent-color);
-            font-family: monospace;
-            font-size: 1.05rem;
-            margin-bottom: 0.8rem;
+            font-family: var(--font-mono);
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transform: skew(12deg);
         }
 
         h1 {
-            font-size: 3.8rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 5.2rem);
+            font-weight: 400;
+            line-height: 1.02;
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--p5-white);
+            text-shadow: 
+                4px 4px 0px var(--p5-blue),
+                8px 8px 0px var(--bg-color);
+            transform: rotate(-1deg);
+        }
+
+        h1 .dot {
+            color: var(--p5-gold);
+            text-shadow: 4px 4px 0px var(--p5-blue);
         }
 
         .subtitle {
-            font-size: 1.6rem;
-            color: var(--muted-color);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+            font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+            color: var(--bg-color);
+            background-color: var(--p5-blue);
+            padding: 0.45rem 1.2rem;
+            margin-bottom: 1.8rem;
+            font-weight: 800;
+            transform: skew(-8deg);
+            box-shadow: 5px 5px 0px var(--p5-white);
+            display: inline-block;
+        }
+
+        .subtitle span {
+            display: inline-block;
+            transform: skew(8deg);
         }
 
         .bio-summary {
-            max-width: 620px;
-            color: var(--muted-color);
+            max-width: 660px;
+            color: var(--text-color);
             font-size: 1.05rem;
+            background-color: var(--panel-bg);
+            padding: 1.4rem 1.8rem;
+            border: 2px solid var(--p5-white);
+            box-shadow: 8px 8px 0px var(--p5-blue), 14px 14px 0px var(--p5-gold);
+            position: relative;
         }
 
-        /* Sections */
+        .bio-summary::before {
+            content: "✦";
+            position: absolute;
+            top: -16px;
+            right: 18px;
+            background-color: var(--p5-gold);
+            color: var(--bg-color);
+            font-size: 1.1rem;
+            font-weight: 900;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--p5-white);
+            transform: rotate(15deg);
+        }
+
+        /* --- Sections & P5R Calling Card Headers --- */
         section {
             padding: 5rem 0;
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(32px) skewY(1deg);
+            transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         section.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) skewY(0deg);
+        }
+
+        .section-header-wrap {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
         }
 
         h2 {
-            font-size: 1.8rem;
-            margin-bottom: 2.5rem;
-            display: flex;
+            font-family: var(--font-display);
+            font-size: 2.3rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--bg-color);
+            background-color: var(--p5-white);
+            padding: 0.25rem 1.6rem;
+            transform: skew(-12deg) rotate(-1.5deg);
+            border: 3px solid var(--bg-color);
+            box-shadow: 6px 6px 0px var(--p5-blue), 12px 12px 0px var(--p5-gold);
+            display: inline-flex;
             align-items: center;
-            color: var(--text-color);
+            gap: 0.7rem;
+            z-index: 2;
         }
 
-        h2::after {
-            content: "";
-            height: 1px;
-            background-color: var(--border-color);
+        h2 .star-icon {
+            color: var(--p5-blue);
+            font-size: 1.6rem;
+            display: inline-block;
+            animation: pulseStar 2.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseStar {
+            0%, 100% { transform: scale(1) rotate(0deg); color: var(--p5-blue); }
+            50% { transform: scale(1.2) rotate(20deg); color: var(--p5-gold); }
+        }
+
+        .section-line {
+            height: 4px;
+            background: linear-gradient(90deg, var(--p5-blue) 0%, var(--p5-gold) 70%, transparent 100%);
             flex-grow: 1;
-            margin-left: 1.5rem;
+            margin-left: -10px;
+            transform: skew(-12deg);
         }
 
-        /* Projects Grid */
+        /* --- About Box --- */
+        .about-panel {
+            color: var(--muted-color);
+            max-width: 780px;
+            line-height: 1.85;
+            background-color: var(--panel-bg);
+            padding: 2.2rem 2.5rem;
+            border: 2px solid var(--p5-white);
+            box-shadow: -8px 8px 0px var(--p5-blue), 8px -8px 0px var(--p5-gold);
+            position: relative;
+        }
+
+        .about-panel p {
+            color: var(--text-color);
+            font-size: 1.03rem;
+        }
+
+        .about-panel p + p {
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px dashed rgba(0, 187, 250, 0.4);
+        }
+
+        /* --- Projects Grid --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-            gap: 1.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.2rem;
         }
 
-        /* Clickable Project Card */
+        /* --- P5R Dossier Project Card --- */
         .card {
-            background-color: var(--card-bg);
+            background-color: var(--panel-bg);
             padding: 2.2rem;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--p5-white);
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+            box-shadow: 8px 8px 0px var(--p5-blue);
+            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), 
+                        box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1), 
+                        border-color 0.22s ease, 
+                        background-color 0.22s ease;
+            overflow: hidden;
+        }
+
+        /* Background Dossier Number */
+        .card::before {
+            content: attr(data-index);
+            position: absolute;
+            bottom: -15px;
+            right: 10px;
+            font-family: var(--font-display);
+            font-size: 5.5rem;
+            line-height: 1;
+            color: rgba(0, 187, 250, 0.06);
+            transform: skew(-12deg);
+            pointer-events: none;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        /* Top-left corner slash accent */
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--p5-blue) 65%, var(--p5-gold) 65%);
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            border-color: var(--accent-color);
-            background-color: var(--card-hover);
+            transform: translate(-5px, -6px) rotate(-1deg);
+            border-color: var(--p5-gold);
+            background-color: var(--panel-hover);
+            box-shadow: 10px 10px 0px var(--p5-gold), 16px 16px 0px var(--p5-blue);
+        }
+
+        .card:hover::before {
+            color: rgba(255, 197, 74, 0.12);
+            transform: skew(-12deg) scale(1.08);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-bottom: 1.1rem;
         }
 
         .card-header h3 {
-            font-size: 1.25rem;
-            color: var(--text-color);
-            font-weight: 600;
+            font-family: var(--font-display);
+            font-size: 1.55rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--p5-white);
+            font-weight: 400;
+            line-height: 1.2;
+            transition: color 0.2s ease;
+        }
+
+        .card:hover .card-header h3 {
+            color: var(--p5-gold);
         }
 
         .card-header .link-icon {
-            color: var(--muted-color);
-            font-size: 1.2rem;
-            transition: color 0.2s, transform 0.2s;
+            background-color: var(--p5-blue);
+            color: var(--bg-color);
+            font-family: var(--font-mono);
+            font-weight: 800;
+            font-size: 1.1rem;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transform: skew(-10deg);
+            border: 2px solid var(--p5-white);
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .card:hover .link-icon {
-            color: var(--accent-color);
-            transform: translate(3px, -3px);
+            background-color: var(--p5-gold);
+            color: var(--bg-color);
+            transform: skew(-10deg) rotate(8deg) scale(1.12);
+            box-shadow: 3px 3px 0px var(--p5-white);
+        }
+
+        .internal-badge {
+            font-size: 0.75rem;
+            color: var(--bg-color);
+            background-color: var(--p5-gold);
+            font-family: var(--font-mono);
+            font-weight: 800;
+            padding: 0.25rem 0.6rem;
+            transform: skew(-10deg);
+            border: 1.5px solid var(--p5-white);
+            white-space: nowrap;
         }
 
         .card p {
             color: var(--muted-color);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.8rem;
+            font-size: 0.96rem;
+            line-height: 1.65;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
+        /* --- Skewed Cutout Tags --- */
         .tags {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
             margin-top: auto;
+            position: relative;
+            z-index: 1;
         }
 
         .tags span {
-            font-size: 0.78rem;
-            font-family: monospace;
-            color: var(--accent-color);
-            background-color: rgba(100, 255, 218, 0.08);
-            padding: 0.35rem 0.7rem;
-            border-radius: 4px;
+            font-size: 0.76rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--p5-white);
+            background-color: var(--bg-color);
+            padding: 0.3rem 0.75rem;
+            border: 1.5px solid var(--p5-blue);
+            transform: skew(-12deg);
+            box-shadow: 2px 2px 0px var(--p5-blue);
+            transition: all 0.2s ease;
+        }
+
+        .tags span:nth-child(even) {
+            border-color: var(--p5-gold);
+            box-shadow: 2px 2px 0px var(--p5-gold);
+        }
+
+        .card:hover .tags span {
+            background-color: var(--p5-white);
+            color: var(--bg-color);
+            border-color: var(--bg-color);
+        }
+
+        /* --- Footer & Contact Links --- */
+        footer {
+            text-align: center;
+            padding: 4.5rem 0 3.5rem;
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            border-top: 3px solid var(--p5-white);
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: "TAKE YOUR TIME";
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%) skew(-12deg);
+            background-color: var(--p5-blue);
+            color: var(--bg-color);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            padding: 0.15rem 1.2rem;
+            border: 2px solid var(--p5-white);
+            box-shadow: 4px 4px 0px var(--p5-gold);
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
         }
 
         .contact-links a {
-            color: var(--muted-color);
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--bg-color);
+            background-color: var(--p5-white);
             text-decoration: none;
-            transition: color 0.2s ease;
+            padding: 0.4rem 1.3rem;
+            transform: skew(-12deg);
+            border: 2px solid var(--bg-color);
+            box-shadow: 4px 4px 0px var(--p5-blue);
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .contact-links a:hover {
-            color: var(--accent-color);
+            background-color: var(--p5-gold);
+            color: var(--bg-color);
+            transform: skew(-12deg) translate(-3px, -3px) rotate(-2deg);
+            box-shadow: 6px 6px 0px var(--p5-blue), 10px 10px 0px var(--p5-white);
         }
 
-        footer {
-            text-align: center;
-            padding: 4rem 0 3rem;
+        .credits {
+            font-family: var(--font-mono);
             font-size: 0.85rem;
-            color: var(--muted-color);
-            border-top: 1px solid var(--border-color);
-            margin-top: 3rem;
+            color: var(--p5-white);
+            opacity: 0.85;
+        }
+
+        .credits span {
+            color: var(--p5-gold);
+            font-weight: 700;
+        }
+
+        /* --- Click Burst Particle --- */
+        .p5-burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-family: var(--font-display);
+            color: var(--p5-gold);
+            font-size: 1.4rem;
+            text-shadow: 2px 2px 0px var(--p5-blue);
+            animation: burstAnim 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes burstAnim {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.9) rotate(45deg);
+            }
+        }
+
+        /* --- Responsive Tweaks --- */
+        @media (max-width: 640px) {
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
+            }
+            h2 {
+                font-size: 1.85rem;
+            }
+            .about-panel, .card {
+                padding: 1.6rem;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- P5R Background Overlay & Rotating Star -->
+    <div class="p5-bg"></div>
+    <svg class="p5-star-bg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 0L63 36L100 38L71 61L81 98L50 77L19 98L29 61L0 38L37 36L50 0Z" fill="#00bbfa"/>
+        <path d="M50 15L59 40L85 42L64 58L71 84L50 69L29 84L36 58L15 42L41 40L50 15Z" fill="#ffc54a"/>
+    </svg>
+
     <div class="container">
         <nav>
-            <a href="#" class="logo">Rai.</a>
+            <a href="#" class="logo">Rai<span>.</span></a>
             <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
+                <a href="#about"><span>About</span></a>
+                <a href="#projects"><span>Projects</span></a>
             </div>
         </nav>
 
         <header>
-            <p class="tagline">Informatics Student & Developer</p>
-            <h1>Rifqi Ramadhani Hidayat.</h1>
-            <p class="subtitle">Building backend systems, data pipelines & machine learning solutions.</p>
+            <div class="tagline-box">
+                <p class="tagline">★ Informatics Student &amp; Developer</p>
+            </div>
+            <h1>Rifqi Ramadhani Hidayat<span class="dot">.</span></h1>
+            <p class="subtitle"><span>Building backend systems, data pipelines &amp; machine learning solutions.</span></p>
             <p class="bio-summary">
                 Informatics student from Universitas Gunadarma with a focus on software engineering, data, and intelligent systems. I enjoy turning ideas into practical, reliable solutions, especially where technology can make real-world processes simpler and more efficient.
             </p>
         </header>
 
         <section id="about" class="fade-in">
-            <h2>About Me</h2>
-            <div style="color: var(--muted-color); max-width: 720px; line-height: 1.85;">
-                <p style="margin-bottom: 1.2rem;">
+            <div class="section-header-wrap">
+                <h2><span class="star-icon">✦</span> About Me</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-panel">
+                <p>
                     I focus on backend engineering, data analysis, and integrating machine learning models into real-world applications. Whether I'm designing database architectures, building RESTful pipelines across PHP and Python, or parsing low-level data streams, I enjoy turning complex problems into clean, maintainable systems.
                 </p>
                 <p>
@@ -262,11 +675,14 @@
         </section>
 
         <section id="projects" class="fade-in">
-            <h2>Featured Projects</h2>
+            <div class="section-header-wrap">
+                <h2><span class="star-icon">✦</span> Featured Projects</h2>
+                <div class="section-line"></div>
+            </div>
             <div class="grid">
                 
                 <!-- Phishing Detection System -->
-                <a href="https://github.com/rwfqi/PhishDetect" target="_blank" rel="noopener noreferrer" class="card">
+                <a href="https://github.com/rwfqi/PhishDetect" target="_blank" rel="noopener noreferrer" class="card" data-index="01">
                     <div>
                         <div class="card-header">
                             <h3>Phishing Detection System</h3>
@@ -283,11 +699,11 @@
                 </a>
 
                 <!-- Automotive Diagnostic Converter (Non-clickable Card) -->
-                <div class="card" style="cursor: default;">
+                <div class="card" data-index="02" style="cursor: default;">
                     <div>
                         <div class="card-header">
                             <h3>Auto-Diagnostic Data Converter</h3>
-                            <span style="font-size: 0.8rem; color: var(--muted-color); font-family: monospace;">[Internal Tool]</span>
+                            <span class="internal-badge">[Internal Tool]</span>
                         </div>
                         <p>A custom Python data-processing tool developed for an automotive diagnostic workflow. Parses, cleans, and standardizes proprietary scanner data into structured formats, reducing manual data processing and improving consistency.</p>
                     </div>
@@ -300,7 +716,7 @@
                 </div>
 
                 <!-- MotoStock -->
-                <a href="https://github.com/rwfqi/MotoStock" target="_blank" rel="noopener noreferrer" class="card">
+                <a href="https://github.com/rwfqi/MotoStock" target="_blank" rel="noopener noreferrer" class="card" data-index="03">
                     <div>
                         <div class="card-header">
                             <h3>MotoStock</h3>
@@ -317,13 +733,13 @@
                 </a>
 
                 <!-- Echoes of Cigarette -->
-                <a href="https://raizine.itch.io/echoes-of-cigaratte" target="_blank" rel="noopener noreferrer" class="card">
+                <a href="https://raizine.itch.io/echoes-of-cigaratte" target="_blank" rel="noopener noreferrer" class="card" data-index="04">
                     <div>
                         <div class="card-header">
-                            <h3>Echoes of Cigartte</h3>
+                            <h3>Echoes of Cigarette</h3>
                             <span class="link-icon">↗</span>
                         </div>
-                        <p>A narrative-driven indie visual novel project developed entirely solo.Handled the complete game production process, including scriptwriting, character art, sound staging, and Ren'Py scripting.</p>
+                        <p>A narrative-driven indie visual novel project developed entirely solo. Handled the complete game production process, including scriptwriting, character art, sound staging, and Ren'Py scripting.</p>
                     </div>
                     <div class="tags">
                         <span>Ren'Py</span>
@@ -334,7 +750,7 @@
                 </a>
 
                 <!-- PerpusDB -->
-                <a href="https://github.com/rwfqi/PerpuSBD" target="_blank" rel="noopener noreferrer" class="card">
+                <a href="https://github.com/rwfqi/PerpuSBD" target="_blank" rel="noopener noreferrer" class="card" data-index="05">
                     <div>
                         <div class="card-header">
                             <h3>PerpusDB</h3>
@@ -359,12 +775,13 @@
                 <a href="mailto:rifqiramadhanihidayat@gmail.com">Email</a>
             </div>
 
-            <p>Designed with Jem &bull; Rai &copy; 2026</p>
+            <p class="credits">Designed with <span>Jem</span> &bull; Rai &copy; 2026</p>
         </footer>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Section Scroll Reveal
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -375,6 +792,17 @@
 
             document.querySelectorAll('.fade-in').forEach(section => {
                 observer.observe(section);
+            });
+
+            // Subtle P5R Star Click Burst
+            document.addEventListener("click", (e) => {
+                const burst = document.createElement("div");
+                burst.className = "p5-burst";
+                burst.textContent = "✦";
+                burst.style.left = `${e.clientX}px`;
+                burst.style.top = `${e.clientY}px`;
+                document.body.appendChild(burst);
+                setTimeout(() => burst.remove(), 550);
             });
         });
     </script>
